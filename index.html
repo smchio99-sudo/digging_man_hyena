@@ -25,6 +25,7 @@ html,body{background:#000;display:flex;align-items:center;justify-content:center
 .key-row{font-family:'Noto Sans KR',sans-serif;font-size:8px;color:#4a3820;margin:1px 0;display:flex;gap:4px;align-items:center;}
 .key-badge{background:rgba(245,200,66,0.1);border:1px solid #4a3010;border-radius:2px;padding:0 3px;color:#8a6030;font-size:7px;}
 #titleScreen,#shopScreen,#gameOverScreen{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;z-index:20;}
+#shopScreen{z-index:56;}
 #titleScreen{background:linear-gradient(180deg,#b8e6ff 0%,#8fd7ff 45%,#dff6ff 100%);}
 .title-stars{position:absolute;inset:0;overflow:hidden;}
 .star{position:absolute;background:rgba(255,255,255,0.85);border-radius:50%;box-shadow:0 0 6px rgba(255,255,255,0.55);}
@@ -42,6 +43,17 @@ html,body{background:#000;display:flex;align-items:center;justify-content:center
 .start-btn{margin-top:0;font-family:'Black Han Sans',sans-serif;font-size:16px;color:#0a0500;background:linear-gradient(180deg,#FFD700 0%,#c8900a 100%);border:none;border-radius:8px;padding:10px 34px;cursor:pointer;box-shadow:0 4px 0 #6a4a00;animation:btnPulse 1.4s ease-in-out infinite;}
 .full-btn{font-family:'Black Han Sans',sans-serif;font-size:14px;color:#06243d;background:linear-gradient(180deg,#eef8ff 0%,#9ed3ff 100%);border:none;border-radius:8px;padding:10px 22px;cursor:pointer;box-shadow:0 4px 0 #3c6d96;}
 .full-btn:hover{filter:brightness(1.05);}
+#pauseBtn{position:absolute;top:12px;left:12px;z-index:57;display:none;align-items:center;justify-content:center;min-width:54px;height:40px;padding:0 14px;border:none;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.96),rgba(196,224,255,0.92));color:#16385b;font-family:'Black Han Sans',sans-serif;font-size:18px;box-shadow:0 6px 16px rgba(0,0,0,0.22);cursor:pointer;pointer-events:auto;}
+#pauseBtn:hover{filter:brightness(1.05);}
+#pauseMenu,#confirmPopup{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.56);z-index:60;padding:20px;}
+.pause-card,.confirm-card{background:linear-gradient(160deg,#13253d,#08131f);border:2px solid rgba(158,211,255,0.52);border-radius:18px;padding:22px 22px 20px;text-align:center;box-shadow:0 16px 40px rgba(0,0,0,0.34);width:min(360px,88vw);}
+.pause-title,.confirm-title{font-family:'Black Han Sans',sans-serif;font-size:28px;color:#eaf6ff;margin-bottom:8px;}
+.pause-desc,.confirm-desc{font-family:'Noto Sans KR',sans-serif;font-size:14px;line-height:1.6;color:#c9ddf3;margin-bottom:16px;}
+.pause-actions{display:grid;grid-template-columns:1fr;gap:10px;}
+.pause-btn,.confirm-btn{font-family:'Black Han Sans',sans-serif;font-size:15px;border:none;border-radius:10px;padding:10px 14px;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,0.2);}
+.pause-btn.primary,.confirm-btn.primary{background:linear-gradient(180deg,#FFD700,#c8900a);color:#0a0500;}
+.pause-btn.secondary{background:linear-gradient(180deg,#eef8ff,#9ed3ff);color:#0b2843;}
+.pause-btn.dark,.confirm-btn.secondary{background:linear-gradient(180deg,#324962,#182636);color:#eef7ff;}
 .start-btn:hover{filter:brightness(1.1);}@keyframes btnPulse{0%,100%{box-shadow:0 4px 0 #6a4a00,0 0 15px rgba(245,200,66,0.2);}50%{box-shadow:0 4px 0 #6a4a00,0 0 28px rgba(245,200,66,0.5);}}
 #gameOverScreen{background:rgba(0,0,0,0.88);flex-direction:column;}
 .go-card{background:linear-gradient(160deg,#200000,#0a0000);border:2px solid #8B0000;border-radius:14px;padding:28px 38px;text-align:center;box-shadow:0 0 50px rgba(180,0,0,0.3);}
@@ -80,18 +92,18 @@ html,body{background:#000;display:flex;align-items:center;justify-content:center
 .item-use-card{max-width:min(360px,88vw);}
 .item-use-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
 .item-no-btn{font-family:'Black Han Sans',sans-serif;font-size:15px;color:#f1d9aa;background:linear-gradient(180deg,#5c4630,#3a2818);border:none;border-radius:8px;padding:9px 24px;cursor:pointer;box-shadow:0 4px 0 #1a120a;}
-#itemBar{position:absolute;top:10px;left:0;width:80.3571%;display:none;justify-content:center;gap:10px;z-index:46;pointer-events:none;}
-.item-slot{width:64px;min-height:52px;padding:4px 4px 5px;background:linear-gradient(180deg,rgba(40,26,10,0.92),rgba(18,10,4,0.96));border:2px solid rgba(245,200,66,0.48);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#f7e0a2;font-family:'Black Han Sans',sans-serif;pointer-events:auto;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,0.24);}
+#itemBar{position:absolute;top:10px;left:0;width:80.3571%;display:none;justify-content:center;gap:5px;z-index:46;pointer-events:none;}
+.item-slot{width:40px;min-height:33px;padding:2px 2px 3px;background:linear-gradient(180deg,rgba(40,26,10,0.92),rgba(18,10,4,0.96));border:1px solid rgba(245,200,66,0.48);border-radius:7px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;color:#f7e0a2;font-family:'Black Han Sans',sans-serif;pointer-events:auto;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.22);}
 .item-slot.empty{border-color:rgba(255,255,255,0.16);color:#a59072;}
 .item-slot.filled{border-color:rgba(245,200,66,0.75);box-shadow:0 0 0 1px rgba(255,215,120,0.18),0 6px 18px rgba(0,0,0,0.26);}
-.item-slot .slot-num{font-size:11px;line-height:1;color:#fff1c4;}
-.item-slot .slot-icon{width:24px;height:24px;display:flex;align-items:center;justify-content:center;line-height:0;filter:drop-shadow(0 2px 3px rgba(0,0,0,0.25));}
-.item-slot .slot-icon svg{width:24px;height:24px;display:block;}
-.item-slot .slot-name{font-size:10px;line-height:1.05;letter-spacing:0.3px;min-height:20px;display:flex;align-items:center;justify-content:center;text-align:center;}
-.item-slot .slot-count{font-size:9px;line-height:1;color:#9ff9ff;min-height:10px;}
+.item-slot .slot-num{font-size:7px;line-height:1;color:#fff1c4;}
+.item-slot .slot-icon{width:14px;height:14px;display:flex;align-items:center;justify-content:center;line-height:0;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.22));}
+.item-slot .slot-icon svg{width:14px;height:14px;display:block;}
+.item-slot .slot-name{font-size:6px;line-height:1.02;letter-spacing:0.1px;min-height:10px;display:flex;align-items:center;justify-content:center;text-align:center;}
+.item-slot .slot-count{font-size:6px;line-height:1;color:#9ff9ff;min-height:7px;}
 .item-slot.empty .slot-icon{opacity:0.2;filter:none;}
-body.mobile-ui #itemBar{top:8px;gap:8px;}
-body.mobile-ui .item-slot{width:68px;min-height:56px;}
+body.mobile-ui #itemBar{top:8px;gap:4px;}
+body.mobile-ui .item-slot{width:44px;min-height:36px;}
 #shopHint{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-family:'Black Han Sans',sans-serif;font-size:10px;color:rgba(245,200,66,0.8);background:rgba(0,0,0,0.7);border:1px solid rgba(245,200,66,0.3);border-radius:12px;padding:4px 12px;pointer-events:none;display:none;}
 #rotateNotice{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(3,8,18,0.88);z-index:60;padding:20px;}
 .rotate-card{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.22);border-radius:18px;padding:24px 20px;text-align:center;color:#fff;backdrop-filter:blur(6px);max-width:300px;}
@@ -119,12 +131,14 @@ body.mobile-ui #wrap{cursor:default;}
   #joyKnob{width:52px;height:52px;margin-left:-26px;margin-top:-26px;}
   #mobileButtons{right:14px;bottom:14px;gap:12px;}
   .mobile-btn{width:76px;height:76px;font-size:26px;}
+  #pauseBtn{top:10px;left:10px;min-width:50px;height:38px;padding:0 12px;font-size:17px;}
 }
 
 </style>
 
 <div id="wrap">
 <canvas id="gameCanvas" width="760" height="540"></canvas>
+<button id="pauseBtn" type="button" aria-label="일시정지">⏸</button>
 <div id="itemBar" aria-label="아이템 바">
   <button class="item-slot" id="itemSlot1" data-slot="1" type="button" aria-label="1번 슬롯"><span class="slot-num">1</span><span class="slot-icon" id="slot1Icon"></span><span class="slot-name" id="slot1Name">빈칸</span><span class="slot-count" id="slot1Count"></span></button>
   <button class="item-slot" id="itemSlot2" data-slot="2" type="button" aria-label="2번 슬롯"><span class="slot-num">2</span><span class="slot-icon" id="slot2Icon"></span><span class="slot-name" id="slot2Name">빈칸</span><span class="slot-count" id="slot2Count"></span></button>
@@ -233,6 +247,29 @@ body.mobile-ui #wrap{cursor:default;}
 </div>
 
 
+<div id="pauseMenu">
+  <div class="pause-card">
+    <div class="pause-title">일시정지</div>
+        <div class="pause-actions">
+      <button class="pause-btn primary" id="pauseContinueBtn" type="button">계속하기</button>
+      <button class="pause-btn dark" id="pauseTitleBtn" type="button">타이틀 화면으로</button>
+      <button class="pause-btn secondary" id="pauseMuteBtn" type="button">음소거</button>
+      <button class="pause-btn secondary" id="pauseFullBtn" type="button">전체화면</button>
+    </div>
+  </div>
+</div>
+
+<div id="confirmPopup">
+  <div class="confirm-card">
+    <div class="confirm-title">타이틀 화면으로</div>
+    <div class="confirm-desc" id="confirmMsg">정말 게임을 종료하시겠습니까?</div>
+    <div class="item-use-actions">
+      <button class="confirm-btn primary" id="confirmYesBtn" type="button">네</button>
+      <button class="confirm-btn secondary" id="confirmNoBtn" type="button">아니오</button>
+    </div>
+  </div>
+</div>
+
 <div id="rotateNotice">
   <div class="rotate-card">
     <div class="rotate-icon">📱↻</div>
@@ -274,15 +311,19 @@ const CW=760,CH=540,TILE=34,COLS=34,SURF=5,ROWS=90,HARD_DEPTH=20;
 
 let gs='title';
 let score=0,gold=0,totalDepth=0;
+let isPaused=false,bgmMuted=false;
 let drillLv=1,jetLv=1,hpLv=1,o2Lv=1;
-const drillCosts=[100,150,200,300,500,800,1200];
-const jetCosts=[300,600,1200];
-const hpCosts=[250,500,1000];
-const o2Costs=[350,700,1400,2800];
+const drillCosts=[100,150,200,300,500,800,1200,1800,2600];
+const jetCosts=[300,600,1200,2400,4800];
+const hpCosts=[250,500,1000,2000,4000];
+const o2Costs=[350,700,1400,2800,5600,8400];
 let maxHP=100,maxJet=100,maxO2=100;
-const JET_REGEN_RATE=0.165;
+const JET_REGEN_BASE=0.165;
 const JET_USE_RATE=1.25;
 const JET_RESTART_THRESHOLD=0.30;
+function getJetRegenRate(){
+  return JET_REGEN_BASE*(1+(jetLv-1)*0.12);
+}
 const ITEM_DEFS={
   potion:{name:'체력물약',short:'체력물약',slot:1,color:'#ff9b84',icon:`<svg viewBox="0 0 32 32" aria-hidden="true"><rect x="11" y="3" width="10" height="4" rx="1.5" fill="#d8eef8"/><rect x="9" y="6" width="14" height="5" rx="2" fill="#f3fbff"/><path d="M10 10h12l3 5v8c0 3.3-2.7 6-6 6h-6c-3.3 0-6-2.7-6-6v-8z" fill="#d84444"/><path d="M12 13h8l2 3v6c0 2.2-1.8 4-4 4h-4c-2.2 0-4-1.8-4-4v-6z" fill="#ff7373" opacity="0.95"/><path d="M16 15l1.7 3.4 3.8.5-2.8 2.6.7 3.9-3.4-1.8-3.4 1.8.7-3.9-2.8-2.6 3.8-.5z" fill="#fff6ae"/><rect x="12" y="8" width="8" height="2" rx="1" fill="#9bb0bb"/></svg>`},
   oxygen:{name:'휴대용 산소',short:'휴대용 O₂',slot:2,color:'#7df6ff',icon:`<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4c4.4 5.7 8.8 9.8 8.8 15.1A8.8 8.8 0 1 1 7.2 19.1C7.2 13.8 11.6 9.7 16 4z" fill="#79e9ff"/><path d="M16 7c3.3 4.4 6.2 7.5 6.2 11.7a6.2 6.2 0 1 1-12.4 0C9.8 14.5 12.7 11.4 16 7z" fill="#b9f8ff" opacity="0.95"/><circle cx="12" cy="14" r="2" fill="rgba(255,255,255,0.75)"/><circle cx="21.5" cy="10.5" r="2.3" fill="rgba(255,255,255,0.55)"/><circle cx="23.8" cy="14.8" r="1.4" fill="rgba(255,255,255,0.45)"/></svg>`}
@@ -436,6 +477,7 @@ function closeUseItemPopup(){
 function updateItemBar(){
   const bar=document.getElementById('itemBar');
   if(bar) bar.style.display=gs==='playing'?'flex':'none';
+  updatePauseButtonVisibility();
   [1,2,3].forEach(slot=>{
     const btn=document.getElementById(`itemSlot${slot}`);
     const iconEl=document.getElementById(`slot${slot}Icon`);
@@ -661,7 +703,7 @@ function ensureBgmReady(){
   }
   bgm.loop=true;
   bgm.volume=0.35;
-  bgm.muted=false;
+  bgm.muted=!!bgmMuted;
 }
 
 function retryPlayBgmOnce(){
@@ -686,6 +728,89 @@ function stopBgm(){
   if(!bgm) return;
   bgm.pause();
   bgm.currentTime=0;
+}
+
+function clearAllInputs(){
+  Object.keys(keys).forEach(code=>keys[code]=false);
+  Object.keys(virtualKeys).forEach(code=>virtualKeys[code]=false);
+}
+
+function isPauseMenuOpen(){
+  const el=document.getElementById('pauseMenu');
+  return !!(el&&el.style.display==='flex');
+}
+
+function isConfirmPopupOpen(){
+  const el=document.getElementById('confirmPopup');
+  return !!(el&&el.style.display==='flex');
+}
+
+function updatePauseButtonVisibility(){
+  const btn=document.getElementById('pauseBtn');
+  if(!btn) return;
+  btn.style.display=gs==='playing'?'flex':'none';
+}
+
+function updateMuteButtonLabel(){
+  const btn=document.getElementById('pauseMuteBtn');
+  if(btn) btn.textContent=bgmMuted?'음소거 해제':'음소거';
+}
+
+function closeConfirmPopup(){
+  const popup=document.getElementById('confirmPopup');
+  if(popup) popup.style.display='none';
+}
+
+function openExitConfirm(){
+  const popup=document.getElementById('confirmPopup');
+  const msg=document.getElementById('confirmMsg');
+  if(msg) msg.textContent='정말 게임을 종료하시겠습니까?';
+  if(popup) popup.style.display='flex';
+}
+
+function closePauseMenu(){
+  const menu=document.getElementById('pauseMenu');
+  if(menu) menu.style.display='none';
+  closeConfirmPopup();
+  isPaused=false;
+  clearAllInputs();
+}
+
+function openPauseMenu(){
+  if(gs!=='playing'||isRewardPopupOpen()||isUseItemPopupOpen()) return false;
+  const menu=document.getElementById('pauseMenu');
+  if(menu) menu.style.display='flex';
+  isPaused=true;
+  clearAllInputs();
+  updateMuteButtonLabel();
+  return true;
+}
+
+function togglePauseMenu(){
+  if(isPauseMenuOpen()) closePauseMenu();
+  else openPauseMenu();
+}
+
+function toggleMuteBgm(){
+  bgmMuted=!bgmMuted;
+  ensureBgmReady();
+  updateMuteButtonLabel();
+}
+
+function returnToTitleScreen(){
+  closePauseMenu();
+  closeRewardPopup();
+  closeUseItemPopup();
+  document.getElementById('shopScreen').style.display='none';
+  document.getElementById('gameOverScreen').style.display='none';
+  document.getElementById('titleScreen').style.display='flex';
+  gs='title';
+  isPaused=false;
+  stopBgm();
+  shopTalkText='';
+  closeConfirmPopup();
+  updateUI();
+  updatePauseButtonVisibility();
 }
 
 function initWorld(){
@@ -715,9 +840,25 @@ let pl={x:3*TILE,y:(SURF-1)*TILE,vx:0,vy:0,w:24,h:30,onGround:false,
   drillDir:null,drillProg:0,drillC:-1,drillR:-1};
 
 const isMobileDevice=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)||(navigator.maxTouchPoints>1&&/Mac/.test(navigator.platform));
+const WALK_SPEED=3*0.85;
+const JUMP_VELOCITY=isMobileDevice?-8.8:-10;
+const VIEW_ZOOM=isMobileDevice?1.12:1.06;
 const keys={},virtualKeys={};
+let cheatBuffer='';
 
 function pressed(code){return !!(keys[code]||virtualKeys[code]);}
+function handleCheatInput(key){
+  if(!key||key.length!==1) return;
+  const ch=key.toLowerCase();
+  if(!/[a-z]/.test(ch)) return;
+  cheatBuffer=(cheatBuffer+ch).slice(-12);
+  if(cheatBuffer.endsWith('tnals')){
+    cheatBuffer='';
+    gold+=1000;
+    updateUI();
+    showNotif('이스터에그 발견! +1000G');
+  }
+}
 function setVirtualKey(code,isDown){virtualKeys[code]=!!isDown;}
 function clearVirtualDirections(){['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].forEach(code=>virtualKeys[code]=false);}
 function nearShopNow(){return pl.x<TILE*3&&Math.abs(pl.y-(SURF-1)*TILE)<TILE*1.5;}
@@ -777,11 +918,13 @@ function initMobileControls(){
     knob.style.transform=`translate(${dx}px,${dy}px)`;
 
     clearVirtualDirections();
-    const threshold=12;
-    if(dx>threshold)setVirtualKey('ArrowRight',true);
-    else if(dx<-threshold)setVirtualKey('ArrowLeft',true);
-    if(dy>threshold)setVirtualKey('ArrowDown',true);
-    else if(dy<-threshold)setVirtualKey('ArrowUp',true);
+    const thresholdX=12;
+    const thresholdDown=12;
+    const thresholdUp=20;
+    if(dx>thresholdX)setVirtualKey('ArrowRight',true);
+    else if(dx<-thresholdX)setVirtualKey('ArrowLeft',true);
+    if(dy>thresholdDown)setVirtualKey('ArrowDown',true);
+    else if(dy<-thresholdUp && Math.abs(dy)>Math.abs(dx)+6)setVirtualKey('ArrowUp',true);
   }
 
   function endJoystick(){
@@ -838,6 +981,7 @@ function initMobileControls(){
 }
 window.addEventListener('keydown',e=>{
   keys[e.code]=true;
+  handleCheatInput(e.key);
   if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space','KeyZ'].includes(e.code))e.preventDefault();
   if(e.code==='KeyZ'&&handleActionPress()) return;
 });
@@ -847,7 +991,10 @@ window.addEventListener('keydown',e=>{
   else if(e.code==='Digit2'){if(handleItemSlotPress(2)) e.preventDefault();}
   else if(e.code==='Digit3'){if(handleItemSlotPress(3)) e.preventDefault();}
   else if((e.code==='Enter'||e.code==='NumpadEnter')&&isUseItemPopupOpen()){confirmUseItem();e.preventDefault();}
+  else if((e.code==='Enter'||e.code==='NumpadEnter')&&isConfirmPopupOpen()){returnToTitleScreen();e.preventDefault();}
   else if(e.code==='Escape'&&isUseItemPopupOpen()){closeUseItemPopup();e.preventDefault();}
+  else if(e.code==='Escape'&&isConfirmPopupOpen()){closeConfirmPopup();e.preventDefault();}
+  else if(e.code==='Escape'&&gs==='playing'){togglePauseMenu();e.preventDefault();}
 });
 
 function solid(c,r){
@@ -867,11 +1014,13 @@ function showNotif(msg,warn){
 function addParticle(wx,wy,color,text){particles.push({wx,wy,vy:-1.8,life:90,color,text});}
 
 function triggerGameOver(reason){
+  closePauseMenu();
   gs='gameover';
   stopBgm();
-  const finalScore=Math.max(0,Math.floor((pl.y+pl.h-SURF*TILE)/TILE));
+  updateUI();
+  const finalDepth=totalDepth;
   document.getElementById('goReason').textContent=reason;
-  document.getElementById('goStats').innerHTML=`현재 depth가 점수가 되어 <b>${finalScore.toLocaleString()}점</b>입니다.<br>골드: ${gold} G<br>최대깊이: ${totalDepth} m`;
+  document.getElementById('goStats').innerHTML=`<span style="font-size:28px;color:#ffd36a;">${finalDepth.toLocaleString()}m</span><br>도달 깊이<br>골드: ${gold} G`;
   document.getElementById('gameOverScreen').style.display='flex';
 }
 function restartGame(){
@@ -882,14 +1031,14 @@ function restartGame(){
   resetRunState();
   Object.assign(pl,{x:3*TILE,y:(SURF-1)*TILE,vx:0,vy:0,hp:100,jet:100,o2:100,
     drillDir:null,drillProg:0,drillC:-1,drillR:-1,fallY:-1,wasFalling:false,inv:0});
-  camX=0;camY=0;gs='playing';playBgm();closeUseItemPopup();updateUI();showNotif('Z를 꾹 누르고 방향키를 유지해야 굴착됩니다!');
+  camX=0;camY=0;gs='playing';isPaused=false;playBgm();closeUseItemPopup();closeConfirmPopup();updateUI();showNotif('Z를 꾹 누르고 방향키를 유지해야 굴착됩니다!');
 }
 
 let lastT=0,gameTime=0;
 function loop(ts){
   let dt=Math.min((ts-lastT)/16.67,3);lastT=ts;
   if(gs==='playing'){
-    if(!isPortraitBlocked()&&!isRewardPopupOpen()&&!isUseItemPopupOpen()){
+    if(!isPortraitBlocked()&&!isRewardPopupOpen()&&!isUseItemPopupOpen()&&!isPauseMenuOpen()&&!isConfirmPopupOpen()&&!isPaused){
       gameTime+=dt/60;
       update(dt);
     }
@@ -950,7 +1099,7 @@ function update(dt){
     if(!sameTarget||!tile||!drillable(pl.drillC,pl.drillR)){
       resetDrill();
       pl.jetOn=false;
-      if(pl.jet<maxJet)pl.jet=Math.min(maxJet,pl.jet+JET_REGEN_RATE*dt);
+      if(pl.jet<maxJet)pl.jet=Math.min(maxJet,pl.jet+getJetRegenRate()*dt);
       updateUI();
       return;
     }
@@ -969,15 +1118,15 @@ function update(dt){
       resetDrill();
     }
     pl.jetOn=false;
-    if(pl.jet<maxJet)pl.jet=Math.min(maxJet,pl.jet+JET_REGEN_RATE*dt);
+    if(pl.jet<maxJet)pl.jet=Math.min(maxJet,pl.jet+getJetRegenRate()*dt);
     updateUI();return;
   }
 
   // Movement
-  if(pressed('ArrowLeft')){pl.vx=-3;pl.right=false;}
-  else if(pressed('ArrowRight')){pl.vx=3;pl.right=true;}
+  if(pressed('ArrowLeft')){pl.vx=-WALK_SPEED;pl.right=false;}
+  else if(pressed('ArrowRight')){pl.vx=WALK_SPEED;pl.right=true;}
   else pl.vx*=0.62;
-  if(pressed('ArrowUp')&&pl.onGround){pl.vy=-10;pl.onGround=false;}
+  if(pressed('ArrowUp')&&pl.onGround){pl.vy=JUMP_VELOCITY;pl.onGround=false;}
   const jetPressed=pressed('Space');
   const canStartJet = pl.jet >= maxJet*JET_RESTART_THRESHOLD;
   const canContinueJet = pl.jet > 0;
@@ -987,7 +1136,7 @@ function update(dt){
     pl.jet=Math.max(0,pl.jet-JET_USE_RATE*dt);
   }else{
     pl.jetOn=false;
-    if(pl.jet<maxJet)pl.jet=Math.min(maxJet,pl.jet+JET_REGEN_RATE*dt);
+    if(pl.jet<maxJet)pl.jet=Math.min(maxJet,pl.jet+getJetRegenRate()*dt);
   }
   pl.vy+=0.58*dt;pl.vy=Math.max(-15,Math.min(pl.vy,16));
 
@@ -1090,6 +1239,12 @@ function tryDrill(c,r,dir){
 
 // ---- RENDER ----
 function render(){
+  ctx.setTransform(1,0,0,1,0,0);
+  ctx.clearRect(0,0,CW,CH);
+  const zoomOffsetX=-(CW*(VIEW_ZOOM-1)/2);
+  const zoomOffsetY=-(CH*(VIEW_ZOOM-1)/2);
+  ctx.save();
+  ctx.setTransform(VIEW_ZOOM,0,0,VIEW_ZOOM,zoomOffsetX,zoomOffsetY);
   const skyHeight=Math.max(0,SURF*TILE-camY+26);
   let skyG=ctx.createLinearGradient(0,0,0,Math.max(skyHeight,1));
   skyG.addColorStop(0,'#AEE2FF');
@@ -1146,16 +1301,19 @@ function render(){
 
   if(pl.drillDir!==null){
     let tile=world[pl.drillR]&&world[pl.drillR][pl.drillC],hard=tile&&tile.hard;
-    ctx.fillStyle='rgba(0,0,0,0.6)';ctx.fillRect(CW/2-90,64,180,20);
-    ctx.strokeStyle=hard?'rgba(255,100,50,0.5)':'rgba(245,200,66,0.4)';ctx.lineWidth=1;ctx.strokeRect(CW/2-90,64,180,20);
+    const drillHudY=CH-34;
+    ctx.fillStyle='rgba(0,0,0,0.6)';ctx.fillRect(CW/2-90,drillHudY,180,20);
+    ctx.strokeStyle=hard?'rgba(255,100,50,0.5)':'rgba(245,200,66,0.4)';ctx.lineWidth=1;ctx.strokeRect(CW/2-90,drillHudY,180,20);
     ctx.fillStyle=hard?'#FF8866':'#FFD700';ctx.font='bold 10px sans-serif';ctx.textAlign='center';
-    ctx.fillText((hard?'🪨 암석 ':'⛏ 굴착 ')+Math.floor(pl.drillProg*100)+'%',CW/2,77);
+    ctx.fillText((hard?'🪨 암석 ':'⛏ 굴착 ')+Math.floor(pl.drillProg*100)+'%',CW/2,drillHudY+13);
   }
   if(pl.o2<15&&Math.floor(Date.now()/400)%2===0){
     ctx.fillStyle='rgba(255,50,50,0.07)';ctx.fillRect(0,0,CW,CH);
     ctx.fillStyle='rgba(255,100,100,0.75)';ctx.font='bold 14px "Black Han Sans",Arial';ctx.textAlign='center';
     ctx.fillText('⚠ 산소 부족!',CW/2,28);
   }
+  ctx.restore();
+  ctx.setTransform(1,0,0,1,0,0);
 }
 
 // ---- DRAW TILE ----
@@ -1638,6 +1796,22 @@ const fullBtn=document.getElementById('fullBtn');
 if(fullBtn){
   fullBtn.addEventListener('click',enterFullscreen);
 }
+const pauseBtn=document.getElementById('pauseBtn');
+if(pauseBtn) pauseBtn.addEventListener('click',togglePauseMenu);
+const pauseContinueBtn=document.getElementById('pauseContinueBtn');
+if(pauseContinueBtn) pauseContinueBtn.addEventListener('click',closePauseMenu);
+const pauseTitleBtn=document.getElementById('pauseTitleBtn');
+if(pauseTitleBtn) pauseTitleBtn.addEventListener('click',openExitConfirm);
+const pauseMuteBtn=document.getElementById('pauseMuteBtn');
+if(pauseMuteBtn) pauseMuteBtn.addEventListener('click',toggleMuteBgm);
+const pauseFullBtn=document.getElementById('pauseFullBtn');
+if(pauseFullBtn) pauseFullBtn.addEventListener('click',enterFullscreen);
+const confirmYesBtn=document.getElementById('confirmYesBtn');
+if(confirmYesBtn) confirmYesBtn.addEventListener('click',returnToTitleScreen);
+const confirmNoBtn=document.getElementById('confirmNoBtn');
+if(confirmNoBtn) confirmNoBtn.addEventListener('click',closeConfirmPopup);
+updateMuteButtonLabel();
+updatePauseButtonVisibility();
 
 document.querySelectorAll('.item-slot').forEach(btn=>{
   btn.addEventListener('click',()=>handleItemSlotPress(Number(btn.dataset.slot)));
@@ -1649,13 +1823,14 @@ if(useItemNoBtn) useItemNoBtn.addEventListener('click',closeUseItemPopup);
 
 document.getElementById('startBtn').addEventListener('click',()=>{
   document.getElementById('titleScreen').style.display='none';
-  gs='playing';initWorld();
+  gs='playing';isPaused=false;closePauseMenu();initWorld();
   resetRunState();
   Object.assign(pl,{x:3*TILE,y:(SURF-1)*TILE,vx:0,vy:0,hp:100,jet:100,o2:100,
     drillDir:null,drillProg:0,drillC:-1,drillR:-1,fallY:-1,wasFalling:false,inv:0});
   camX=0;camY=0;totalDepth=0;o2DmgTimer=0;lastDmgTime=-999;regenTimer=0;gameTime=0;
   closeRewardPopup();
   closeUseItemPopup();
+  closeConfirmPopup();
   playBgm();
   updateUI();showNotif('Z를 꾹 누른 채 방향키 유지 | 상점 앞에서 Z 입장');
 });
